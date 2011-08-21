@@ -1,9 +1,13 @@
 package meta1203.ProofOfConcept;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import net.minecraft.server.Item;
 import net.minecraft.server.ItemBlock;
