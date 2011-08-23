@@ -33,7 +33,7 @@ public class ProofOfConcept extends JavaPlugin {
     public List<Float> blockHardness = new ArrayList<Float>();
     public List<Float> blockResistance = new ArrayList<Float>();
     public List<Integer> blockStepSound = new ArrayList<Integer>();
-    public List<Integer> blockTexture = new ArrayList<Integer>();
+    public List<int[]> blockTexture = new ArrayList<int[]>();
     public List<Integer> blockMaterialType = new ArrayList<Integer>();
     public List<String> blockName = new ArrayList<String>();
     private StartThread startT = new StartThread(this);
@@ -73,7 +73,7 @@ public class ProofOfConcept extends JavaPlugin {
         System.out.println("Goodbye world!");
     }
 
-    public void newBlock(int id, float hardness, float resistance, int stepSound, int textureId, int materialCase, String name) {
+    public void newBlock(int id, float hardness, float resistance, int stepSound, int[] textureId, int materialCase, String name) {
     	blockTypesToDefine.add(id);
     	blockHardness.add(hardness);
     	blockResistance.add(resistance);

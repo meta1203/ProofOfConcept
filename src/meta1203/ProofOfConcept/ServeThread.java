@@ -41,9 +41,13 @@ public class ServeThread extends Thread {
 			out.println(Float.toString(plugin.blockHardness.get(x)));
 			out.println(Float.toString(plugin.blockResistance.get(x)));
 			out.println(Integer.toString(plugin.blockStepSound.get(x)));
-			out.println(Integer.toString(plugin.blockTexture.get(x)));
 			out.println(Integer.toString(plugin.blockMaterialType.get(x)));
 			out.println(plugin.blockName.get(x));
+			
+			for (int current = 0; current < 6; current++) {
+				System.out.println(plugin.blockTexture.get(x)[current]);
+				out.println(plugin.blockTexture.get(x)[current]);
+			}
 		}
 	}
 }
