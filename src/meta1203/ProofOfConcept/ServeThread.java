@@ -50,10 +50,10 @@ public class ServeThread extends Thread {
 				out.println(plugin.blockTexture.get(x)[current]);
 			}
 		}
-		for (int x = 0; x < plugin.blockTypesToDefine.size(); x++) {
+		for (int x : plugin.blockTypesToDefine) {
 			out.println("sweet");
 			out.println("item");
-			out.println(Integer.toString(plugin.itemTypesToDefine.get(x)));
+			out.println(x);
 		}
 		out.close();
 		try {
