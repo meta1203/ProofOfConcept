@@ -37,6 +37,7 @@ public class ServeThread extends Thread {
 		
 		for (int x = 0; x < plugin.blockTypesToDefine.size(); x++) {
 			out.println("sweet");
+			out.println("block");
 			out.println(Integer.toString(plugin.blockTypesToDefine.get(x)));
 			out.println(Float.toString(plugin.blockHardness.get(x)));
 			out.println(Float.toString(plugin.blockResistance.get(x)));
@@ -45,9 +46,21 @@ public class ServeThread extends Thread {
 			out.println(plugin.blockName.get(x));
 			
 			for (int current = 0; current < 6; current++) {
-				System.out.println(plugin.blockTexture.get(x)[current]);
+				// System.out.println(plugin.blockTexture.get(x)[current]);
 				out.println(plugin.blockTexture.get(x)[current]);
 			}
+		}
+		for (int x = 0; x < plugin.blockTypesToDefine.size(); x++) {
+			out.println("sweet");
+			out.println("item");
+			out.println(Integer.toString(plugin.itemTypesToDefine.get(x)));
+		}
+		out.close();
+		try {
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

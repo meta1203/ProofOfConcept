@@ -36,6 +36,7 @@ public class ProofOfConcept extends JavaPlugin {
     public List<int[]> blockTexture = new ArrayList<int[]>();
     public List<Integer> blockMaterialType = new ArrayList<Integer>();
     public List<String> blockName = new ArrayList<String>();
+    public List<Integer> itemTypesToDefine = new ArrayList<Integer>();
     private StartThread startT = new StartThread(this);
 
     public ProofOfConcept() {
@@ -64,15 +65,17 @@ public class ProofOfConcept extends JavaPlugin {
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well
     	startT.listening = false;
-    	try {
+    	/* try {
 			startT.serverSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-        System.out.println("Goodbye world!");
+		} */ 
+		PluginDescriptionFile pdfFile = this.getDescription();
+        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled.");
     }
 
+    @Deprecated
     public void newBlock(int id, float hardness, float resistance, int stepSound, int[] textureId, int materialCase, String name) {
     	blockTypesToDefine.add(id);
     	blockHardness.add(hardness);
@@ -82,6 +85,37 @@ public class ProofOfConcept extends JavaPlugin {
     	blockMaterialType.add(materialCase);
     	blockName.add(name);
     	reloadBlocks();
+    }
+    
+    public BlockVar allocateFreeBlock(net.minecraft.server.Material mat, float hardness, float resistance, int stepSound, int[] textureId, int materialCase, String name) {
+    	BlockVar newBlock;
+    	int id = 97;
+    	if (blockTypesToDefine.size() == 0) {
+    		id = 97;
+    	}
+    	else {
+    		id = blockTypesToDefine.get(blockTypesToDefine.size()-1)+1;
+    	}
+    	newBlock = new BlockVar(id, mat, 1F);
+    	blockTypesToDefine.add(id);
+    	blockHardness.add(hardness);
+    	blockResistance.add(resistance);
+    	blockStepSound.add(stepSound);
+    	blockTexture.add(textureId);
+    	blockMaterialType.add(materialCase);
+    	blockName.add(name);
+    	reloadBlocks();
+    	return newBlock;
+    }
+    
+    public ItemVar allocateFreeItem() {
+    	int id = 358;
+    	if (itemTypesToDefine.size() != 0) {
+    		id = itemTypesToDefine.get(itemTypesToDefine.size()-1)+1;
+    	}
+    	ItemVar toReturn = new ItemVar(id);
+    	reloadItems();
+    	return toReturn;
     }
     
     public void reloadBlocks() {
@@ -96,6 +130,19 @@ public class ProofOfConcept extends JavaPlugin {
 	        e.printStackTrace();
 	    }
         }
+    }
+    
+    public void reloadItems() {
+    	for (int x : itemTypesToDefine) {
+            try {
+            	// System.out.println("Adding block...");
+            	Item.byId[x] = new ItemBlock(x-256);
+    	    }
+    	    catch (Exception e){
+    	        log.warning("Failed loading recipies: ");
+    	        e.printStackTrace();
+    	    }
+            }
     }
     
 }
